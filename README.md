@@ -3,6 +3,17 @@
 Osobna, privatna biblioteka tekstova i kolumni — "reading room" za tekstove
 koje vrijedi pročitati još jednom.
 
+## Brzi pregled bez instalacije
+
+U mapi [`docs/standalone/`](docs/standalone/) nalazi se gotova, statička
+verzija stranice koja radi **bez Node.js-a** — samo je preuzmi (zelena
+"Code" tipka → "Download ZIP") i otvori `docs/standalone/index.html`
+dvostrukim klikom u pregledniku.
+
+Kako stranica izgleda možeš odmah vidjeti i na slikama u
+[`docs/screenshots/`](docs/screenshots/) — naslovnica i stranica za
+čitanje, u svjetloj i tamnoj temi.
+
 ## Pokretanje (lokalno, privatno)
 
 ```bash

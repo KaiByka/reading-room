@@ -1,5 +1,7 @@
 # build output
 dist/
+standalone/
+!docs/standalone
 # generated types
 .astro/
 
