@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="hr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O čitaoni — Čitaona</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/stil.css">
+  <script src="js/citaona.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#sadrzaj">Preskoči na sadržaj</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <div class="masthead-top">
+        <span class="loc">Osobna biblioteka</span>
+        <span class="loc">
+          <a href="index.html">Polica</a>
+          <a href="o-citaoni.html">O čitaoni</a>
+          <button id="tema-btn" class="theme-btn" type="button">Tema</button>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main id="sadrzaj" class="wrap">
+    <header class="page-head">
+      <h1 class="page-title">O čitaoni</h1>
+      <p class="page-lead">Osobna biblioteka tekstova i kolumni — mjesto gdje se čuva ono što je vrijedno ponovnog čitanja. Privatna je, bez javne objave, i radi posve lokalno.</p>
+    </header>
+
+    <div class="prose prose-page">
+      <h2>Kako dodati novi tekst</h2>
+      <p>Svaki tekst je jedna HTML datoteka u mapi <code>tekstovi/</code>. Najlakši način: <strong>dupliciraj postojeću datoteku</strong> (npr. <code>tekstovi/o-umijecu-sporog-citanja.html</code>) i zamijeni naslov, metapodatke i tijelo teksta. Ništa drugo ne diraš.</p>
+
+      <p>Zatim ga dodaj u katalog — datoteku <code>js/katalog.js</code> — da se pojavi na polici:</p>
+      <pre><code>window.KATALOG = [
+  // … postojeći tekstovi …
+  {
+    naslov: 'Naslov novog teksta',
+    opis: 'Jedna-dvije rečenice o čemu se radi.',
+    autor: 'Ime autora',
+    izvor: 'Portal ili novine',
+    datum: 'ožujak 2025.',
+    tags: ['kultura', 'esej'],
+    url: 'tekstovi/novi-tekst.html',
+  },
+];</code></pre>
+
+      <p>Pretraga i tagovi rade automatski iz kataloga.</p>
+
+      <h2>Struktura projekta</h2>
+      <pre><code>citaona/
+├── index.html        ← polica (naslovnica)
+├── o-citaoni.html    ← ova stranica
+├── css/stil.css      ← sav dizajn
+├── js/citaona.js     ← pretraga, tagovi, tema
+├── js/katalog.js     ← popis tekstova (ovdje dodaješ nove)
+└── tekstovi/         ← sami tekstovi (dupliciraš template)</code></pre>
+
+      <h2>Pokretanje</h2>
+      <p>Ničega ne treba — dvostruki klik na <code>index.html</code> i sve radi u pregledniku. Bez Node.js-a, bez servera, bez instalacije. Radi i offline (fontovi s interneta su poželjni, ali imaju rezervne).</p>
+
+      <h2>Izvorni URL</h2>
+      <p>Ako je tekst uvezen s interneta, izvorni link stavi na dno stranice teksta u <code>article-foot</code> sekciji, s klasom <code>original-url</code>.</p>
+    </div>
+  </main>
+
+  <footer class="wrap site-foot">
+    <span>Čitaona · osobni arhiv</span>
+    <span>Čuvano za ponovno čitanje</span>
+  </footer>
+</body>
+</html>

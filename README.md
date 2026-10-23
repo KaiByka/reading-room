@@ -1,83 +1,54 @@
 # Čitaona
 
-Osobna, privatna biblioteka tekstova i kolumni — "reading room" za tekstove
-koje vrijedi pročitati još jednom.
+Osobna, privatna biblioteka tekstova i kolumni — za tekstove koje vrijedi
+pročitati još jednom.
 
-## Brzi pregled bez instalacije
-
-U mapi [`docs/standalone/`](docs/standalone/) nalazi se gotova, statička
-verzija stranice koja radi **bez Node.js-a** — samo je preuzmi (zelena
-"Code" tipka → "Download ZIP") i otvori `docs/standalone/index.html`
-dvostrukim klikom u pregledniku.
-
-Kako stranica izgleda možeš odmah vidjeti i na slikama u
-[`docs/screenshots/`](docs/screenshots/) — naslovnica i stranica za
-čitanje, u svjetloj i tamnoj temi.
-
-## Pokretanje (lokalno, privatno)
-
-```bash
-npm install
-npm run dev
-```
-
-Stranica je dostupna na `http://localhost:4321`. Radi isključivo lokalno —
-ništa nije javno objavljeno.
-
-Produkcija (statički fajlovi u `dist/`):
-
-```bash
-npm run build
-```
-
-## Dodavanje teksta
-
-Svaki tekst je jedna Markdown datoteka u `src/content/texts/`:
-
-```markdown
----
-title: "Naslov kolumne"
-description: "Jedna-dvije rečenice o čemu se radi."
-author: "Ime autora"
-source: "Portal ili novine"
-date: 2025-01-15
-tags: ["kultura", "esej"]
----
-
-Ovdje počinje tekst…
-```
-
-Nakon dodavanja, tekst se automatski pojavi na polici, s pretragom i
-tagovima.
-
-### Uvoz s URL-a
-
-Kolumnu ili članak s interneta možeš uvesti jednom naredbom — skripta
-dohvati stranicu, izdvoji naslov, autora, datum i tijelo te spremi sve
-kao Markdown:
-
-```bash
-npm run import -- https://primjer.com/kolumna
-npm run import -- https://primjer.com/kolumna --tags kultura,esej
-npm run import -- https://primjer.com/kolumna --source "Ime portala"
-```
-
-Izvorni URL se pamti u `originalUrl` polju i prikazuje na dnu teksta.
-Ako je stranica JavaScript-renderirana ili iza paywalla, skripta će to
-javiti — tada tekst sačuvaj ručno.
-
-## Dizajn
-
-- Tople, papirnate nijanse (svjetla tema) + prava tamna tema
-- Serif za tijelo teksta, bez serifna za sučelje
-- Mjerna dužina reda ~65 znakova, velik line-height — za dugotrajno čitanje
-- Polica s karticama, pretraga i tag filtri (radi i bez JavaScript servera)
+**Čisti HTML/CSS/JS — bez Node.js-a, bez buildanja, bez servera.**
+Dvostruki klik na `index.html` i sve radi.
 
 ## Struktura
 
-- `src/pages/index.astro` — naslovnica (polica s karticama)
-- `src/pages/tekstovi/[slug].astro` — stranica za čitanje
-- `src/pages/o-citaoni.astro` — upute
-- `src/content/texts/` — svi tekstovi
-- `src/layouts/` i `src/components/` — dizajn
-- `src/styles/global.css` — boje, tipografija, teme
+```
+citaona/
+├── index.html        ← polica (naslovnica)
+├── o-citaoni.html    ← upute
+├── css/stil.css      ← sav dizajn
+├── js/citaona.js     ← pretraga, tagovi, tema
+├── js/katalog.js     ← popis tekstova (ovdje dodaješ nove)
+└── tekstovi/         ← sami tekstovi
+```
+
+## Dodavanje novog teksta
+
+1. **Dupliciraj** bilo koju datoteku u `tekstovi/` (npr. `o-umijecu-sporog-citanja.html`)
+2. Zamijeni naslov, metapodatke (izvor, autor, datum, tagovi) i tijelo teksta
+3. Otvori `js/katalog.js` i dodaj unos na kraj liste:
+
+```js
+{
+  naslov: 'Naslov novog teksta',
+  opis: 'Jedna-dvije rečenice o čemu se radi.',
+  autor: 'Ime autora',
+  izvor: 'Portal ili novine',
+  datum: 'ožujak 2025.',
+  tags: ['kultura', 'esej'],
+  url: 'tekstovi/novi-tekst.html',
+},
+```
+
+Gotovo — tekst je na polici, pretraga i tagovi rade automatski.
+
+## Dizajn
+
+- Editorijalni, novinski izgled: Fraunces (display), Source Serif 4 (tijelo),
+  IBM Plex Mono (metapodaci)
+- Duboka krem pozadina s finom teksturom papira; tamna tema je "stari
+  papir u tami", ne crno-bijela
+- Kazalo s numeriranim redovima umjesto kartica, drop-cap na početku
+  teksta, pečat "Za ponovno čitanje"
+- Kako izgleda: slike u `docs/screenshots/`
+
+## Privatnost
+
+Sve radi lokalno, izravno iz mape — bez objave, bez servera. Fontovi se
+dohvaćaju s Google Fontsa (ako si offline, koriste se rezervni).

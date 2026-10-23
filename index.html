@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="hr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Čitaona — osobna biblioteka</title>
+  <meta name="description" content="Osobna biblioteka tekstova i kolumni.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/stil.css">
+  <script src="js/citaona.js"></script>
+  <script src="js/katalog.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#sadrzaj">Preskoči na sadržaj</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <div class="masthead-top">
+        <span class="loc">Osobna biblioteka</span>
+        <span class="loc">
+          <a href="index.html">Polica</a>
+          <a href="o-citaoni.html">O čitaoni</a>
+          <button id="tema-btn" class="theme-btn" type="button">Tema</button>
+        </span>
+      </div>
+      <div class="masthead-main">
+        <h1 class="masthead-title"><a href="index.html">Čita<em>o</em>na</h1></a>
+        <p class="masthead-sub">Tekstovi koji izdrže drugo čitanje</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="sadrzaj" class="wrap">
+    <div class="tools">
+      <div class="search-box">
+        <label for="pretraga" class="skip-link">Pretraži policu</label>
+        <input id="pretraga" type="search" placeholder="Pretraži naslove, autore, teme…" autocomplete="off">
+      </div>
+      <div class="tag-filter" id="tag-filter" role="group" aria-label="Filtriraj po temama"></div>
+      <span class="count" id="broj" aria-live="polite"></span>
+    </div>
+
+    <ol class="catalog" id="kazalo">
+      <li class="catalog-row">
+        <div class="cat-main">
+          <p class="cat-source">Primjer magazina</p>
+          <h2 class="cat-title"><a href="tekstovi/o-umijecu-sporog-citanja.html">O umijeću sporog čitanja</a></h2>
+          <p class="cat-desc">Kolumna o tome zašto brzina nije vrlina kad je riječ o dobrim tekstovima — i zašto vrijedi vraćati se istim rečenicama.</p>
+        </div>
+        <div class="cat-side">
+          <div class="author">Primjer Autora</div>
+          <div>siječanj 2025.</div>
+          <div class="cat-tags"><span>esej</span><span>kultura</span></div>
+        </div>
+      </li>
+
+      <li class="catalog-row">
+        <div class="cat-main">
+          <p class="cat-source">Primjer portala</p>
+          <h2 class="cat-title"><a href="tekstovi/grad-koji-se-cita-u-hodu.html">Grad koji se čita u hodu</a></h2>
+          <p class="cat-desc">Esej o gradskim natpisima, pločama i grafitima kao svakodnevnoj književnosti koju većina ljudi nikad ne primijeti.</p>
+        </div>
+        <div class="cat-side">
+          <div class="author">Drugi Primjer</div>
+          <div>veljača 2025.</div>
+          <div class="cat-tags"><span>kultura</span><span>grad</span></div>
+        </div>
+      </li>
+
+      <li class="catalog-row">
+        <div class="cat-main">
+          <p class="cat-source">Primjer radija</p>
+          <h2 class="cat-title"><a href="tekstovi/razgovor-arhivi-sjecanje.html">Razgovor o arhivima i sjećanju</a></h2>
+          <p class="cat-desc">Intervju s arhivistkinjom o tome zašto čuvamo stare dokumente i što nam oni zapravo govore o sadašnjosti.</p>
+        </div>
+        <div class="cat-side">
+          <div class="author">Treći Primjer</div>
+          <div>studeni 2024.</div>
+          <div class="cat-tags"><span>povijest</span><span>intervju</span></div>
+        </div>
+      </li>
+    </ol>
+
+    <p class="empty" id="prazno">Ništa nije pronađeno. Pokušaj s drugim pojmom.</p>
+  </main>
+
+  <footer class="wrap site-foot">
+    <span>Čitaona · osobni arhiv</span>
+    <span>Čuvano za ponovno čitanje</span>
+  </footer>
+</body>
+</html>
