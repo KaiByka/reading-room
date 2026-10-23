@@ -39,6 +39,22 @@ Ovdje počinje tekst…
 Nakon dodavanja, tekst se automatski pojavi na polici, s pretragom i
 tagovima.
 
+### Uvoz s URL-a
+
+Kolumnu ili članak s interneta možeš uvesti jednom naredbom — skripta
+dohvati stranicu, izdvoji naslov, autora, datum i tijelo te spremi sve
+kao Markdown:
+
+```bash
+npm run import -- https://primjer.com/kolumna
+npm run import -- https://primjer.com/kolumna --tags kultura,esej
+npm run import -- https://primjer.com/kolumna --source "Ime portala"
+```
+
+Izvorni URL se pamti u `originalUrl` polju i prikazuje na dnu teksta.
+Ako je stranica JavaScript-renderirana ili iza paywalla, skripta će to
+javiti — tada tekst sačuvaj ručno.
+
 ## Dizajn
 
 - Tople, papirnate nijanse (svjetla tema) + prava tamna tema

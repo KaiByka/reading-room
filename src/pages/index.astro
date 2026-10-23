@@ -11,7 +11,7 @@ const texts = (await getCollection('texts')).sort(
 const items = texts.map((t) => ({
   title: t.data.title,
   description: t.data.description,
-  url: `/tekstovi/${t.slug}/`,
+  url: `/tekstovi/${t.id}/`,
   author: t.data.author,
   source: t.data.source,
   tags: t.data.tags,
@@ -31,7 +31,7 @@ const items = texts.map((t) => ({
       <ArticleCard
         title={t.data.title}
         description={t.data.description}
-        url={`/tekstovi/${t.slug}/`}
+        url={`/tekstovi/${t.id}/`}
         author={t.data.author}
         source={t.data.source}
         date={t.data.date}
