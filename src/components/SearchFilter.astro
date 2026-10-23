@@ -1,0 +1,181 @@
+---
+interface Item {
+  title: string;
+  description: string;
+  url: string;
+  author?: string;
+  source?: string;
+  tags?: string[];
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="shelf-tools">
+  <label class="visually-hidden" for="shelf-search">Pretraži policu</label>
+  <input
+    id="shelf-search"
+    class="search-input"
+    type="search"
+    placeholder="Pretraži naslove, autore, tagove…"
+    autocomplete="off"
+  />
+  <div class="tag-filter" id="tag-filter" role="group" aria-label="Filtriraj po temama"></div>
+  <p class="shelf-count" id="shelf-count" aria-live="polite"></p>
+</div>
+
+<div class="shelf-grid" id="shelf-grid" data-items={JSON.stringify(items)}>
+  <slot />
+</div>
+
+<p class="empty-state" id="empty-state" hidden>Ništa nije pronađeno. Pokušaj s drugim pojmom.</p>
+
+<style>
+  .shelf-tools {
+    max-width: 42rem;
+    margin: 2.5rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-input {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+  }
+
+  .search-input::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .filter-btn[aria-pressed='true'] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  .shelf-count {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  .shelf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .empty-state {
+    font-family: var(--font-ui);
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+</style>
+
+<script>
+  const grid = document.getElementById('shelf-grid');
+  const search = document.getElementById('shelf-search') as HTMLInputElement;
+  const tagFilter = document.getElementById('tag-filter');
+  const count = document.getElementById('shelf-count');
+  const empty = document.getElementById('empty-state');
+
+  const items = JSON.parse(grid!.dataset.items ?? '[]');
+  const cards = Array.from(grid!.querySelectorAll('.card')) as HTMLElement[];
+
+  const tags = Array.from(new Set(items.flatMap((i: any) => i.tags ?? []))).sort();
+
+  let activeTag: string | null = null;
+
+  for (const tag of tags) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'filter-btn';
+    btn.textContent = tag;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', () => {
+      activeTag = activeTag === tag ? null : tag;
+      tagFilter!.querySelectorAll('button').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b === btn && activeTag === tag));
+      });
+      apply();
+    });
+    tagFilter!.appendChild(btn);
+  }
+
+  function matches(i: (typeof items)[number], q: string) {
+    if (activeTag && !(i.tags ?? []).includes(activeTag)) return false;
+    if (!q) return true;
+    const hay = [i.title, i.description, i.author, i.source, ...(i.tags ?? [])]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+    return hay.includes(q);
+  }
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    items.forEach((item, idx) => {
+      const show = matches(item, q);
+      cards[idx].style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    count!.textContent = `${visible} ${visible === 1 ? 'tekst' : 'tekstova'} na polici`;
+    empty!.hidden = visible !== 0;
+  }
+
+  search!.addEventListener('input', apply);
+  apply();
+</script>

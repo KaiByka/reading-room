@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="O čitaoni — Čitaona">
+  <article class="prose">
+    <h1>O čitaoni</h1>
+    <p>
+      Ovo je osobna biblioteka tekstova i kolumni — mjesto gdje se čuva ono što
+      je vrijedno ponovnog čitanja. Privatna je, bez javne objave, i radi
+      posve lokalno na računalu.
+    </p>
+
+    <h2>Kako dodati novi tekst</h2>
+    <p>
+      Svaki tekst je jedna Markdown datoteka u mapi
+      <code>src/content/texts/</code>. Na vrhu datoteke nalazi se kratko
+      zaglavlje s naslovom, opisom, autorom, izvorom, datumom i temama:
+    </p>
+    <pre><code>---
+title: "Naslov kolumne"
+description: "Jedna-dvije rečenice o čemu se radi."
+author: "Ime autora"
+source: "Ime portala ili novina"
+date: 2025-01-15
+tags: ["kultura", "esej"]
+---
+
+Ovdje počinje sam tekst kolumne…</code></pre>
+    <p>
+      Nakon dodavanja datoteke, tekst se automatski pojavljuje na polici —
+      s pretragom i tagovima. Nije potrebno ništa drugačije.
+    </p>
+
+    <h2>Pokretanje</h2>
+    <ul>
+      <li><code>npm install</code> — prvi put, instalacija</li>
+      <li><code>npm run dev</code> — lokalno čitanje na <code>localhost:4321</code></li>
+      <li><code>npm run build</code> — statička verzija u mapi <code>dist/</code></li>
+    </ul>
+    <p>
+      Dok je stranica lokalna, potpuno je privatna. Ako je ikada poželiš
+      objaviti, hosting je jednostavan — ali to je drugi razgovor.
+    </p>
+  </article>
+</BaseLayout>
